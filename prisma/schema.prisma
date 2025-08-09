@@ -11,7 +11,8 @@ model Clients{
     id String @id @default(uuid())
     name String
     email String @unique
-    status Boolean
-    family_profile String
+    status Boolean? @default(true)
+    family_profile String?
+    age Int
 }
 

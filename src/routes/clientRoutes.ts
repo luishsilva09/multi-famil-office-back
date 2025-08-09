@@ -1,15 +1,10 @@
 import { FastifyInstance } from 'fastify'
-import { createUser } from '../controllers/clientController'
-import { createUserSchema } from '../schemas/clientSchema'
+import { createClient, deleteClient, listClient, updateClient } from '../controllers/clientController'
+import { createClientJsonSchema, updateClientJsonSchema } from '../schemas/clientSchema'
 
 export async function clientRoutes(fastify: FastifyInstance) {
-    fastify.post(
-        '/users',
-        {
-            schema: {
-                body: createUserSchema.shape.body,
-            },
-        },
-        createUser
-    )
+    fastify.post('/client', { schema: createClientJsonSchema }, createClient)
+    fastify.get('/client',listClient)
+    fastify.put('/client/:id', { schema: updateClientJsonSchema }, updateClient)
+    fastify.delete('/client/:id', deleteClient)
 }

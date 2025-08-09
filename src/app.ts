@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import prismaPlugin from './plugins/prisma'
 import authPlugin from './plugins/auth'
 import swaggerPlugin from './plugins/swagger'
-import { userRoutes } from './routes/clientRoutes'
+import { clientRoutes } from './routes/clientRoutes'
 
 dotenv.config()
 
@@ -12,7 +12,7 @@ const app = Fastify({ logger: true })
 app.register(prismaPlugin)
 app.register(authPlugin)
 app.register(swaggerPlugin)
-app.register(userRoutes)
+app.register(clientRoutes)
 
 const start = async () => {
     try {

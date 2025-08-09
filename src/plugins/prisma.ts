@@ -5,6 +5,9 @@ declare module 'fastify' {
     interface FastifyInstance {
         prisma: PrismaClient
     }
+    interface FastifyRequest {
+        prisma: PrismaClient
+    }
 }
 
 const prisma = new PrismaClient()
@@ -14,5 +17,9 @@ export default fp(async (fastify) => {
 
     fastify.addHook('onClose', async () => {
         await prisma.$disconnect()
+    })
+
+    fastify.addHook('onRequest', async (request) => {
+        request.prisma = prisma
     })
 })
