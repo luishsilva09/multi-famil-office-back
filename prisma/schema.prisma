@@ -34,6 +34,7 @@ model Goals {
   id        String   @id @default(uuid())
   title     String
   deadline  DateTime
+  targetValue  Float 
   clientId  String
   client    Clients  @relation(fields: [clientId], references: [id])
 }
