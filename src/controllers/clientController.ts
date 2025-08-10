@@ -29,7 +29,7 @@ export async function createClient(request: FastifyRequest, reply: FastifyReply)
         if (error instanceof ZodError) {
             return reply.status(400).send({ error: 'Validation failed', issues: (error as any).issues })
         }
-        return reply.status(500).send({ error: error.message ?? 'Internal server error' })
+        return reply.status(500).send({ error: (error as any).errors ?? 'Internal server error' })
     }
 }
 
