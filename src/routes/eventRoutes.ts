@@ -3,8 +3,38 @@ import { createEvent, deleteEvent, listEvent, updateEvent } from '../controllers
 import { createEventJsonSchema, updateEventJsonSchema } from '../schemas/eventSchema'
 
 export async function eventRoutes(fastify: FastifyInstance) {
-    fastify.post('/event', { schema: createEventJsonSchema }, createEvent)
-    fastify.get('/event', listEvent)
-    fastify.put('/event/:id', { schema: updateEventJsonSchema }, updateEvent)
-    fastify.delete('/event/:id', deleteEvent)
+    fastify.post(
+        '/event',
+        {
+            schema: createEventJsonSchema,
+            preHandler: [fastify.authenticate],
+        },
+        createEvent
+    )
+
+    fastify.get(
+        '/event',
+        {
+            preHandler: [fastify.authenticate],
+        },
+        listEvent
+    )
+
+    fastify.put(
+        '/event/:id',
+        {
+            schema: updateEventJsonSchema,
+            preHandler: [fastify.authenticate],
+        },
+        updateEvent
+    )
+
+    fastify.delete(
+        '/event/:id',
+        {
+            preHandler: [fastify.authenticate],
+        },
+        deleteEvent
+    )
 }
+
