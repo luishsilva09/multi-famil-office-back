@@ -43,6 +43,21 @@ export async function listClient(request: FastifyRequest, reply: FastifyReply) {
     }
 }
 
+export async function listClientById(request: FastifyRequest, reply: FastifyReply) {
+    try {
+        const { id } = request.params as { id: string }
+        const client = await request.prisma.clients.findUnique({
+            where:{
+                id
+            }
+        })
+
+        return reply.status(200).send(client)
+    } catch (error) {
+        return reply.status(500).send({ error: (error as any).errors ?? 'Internal server error' })
+    }
+}
+
 export async function updateClient(request: FastifyRequest, reply: FastifyReply) {
     try {
         const data = updateClientSchema.parse({
