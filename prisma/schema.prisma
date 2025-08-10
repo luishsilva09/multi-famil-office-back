@@ -14,5 +14,26 @@ model Clients{
     status Boolean? @default(true)
     family_profile String?
     age Int
+    goals Goals[]
 }
 
+model Events{
+  id String @id @default(uuid())
+  type String
+  value Float
+  frequency Frequency
+}
+
+enum Frequency {
+  ONCE
+  MONTHLY
+  YEARLY
+}
+
+model Goals {
+  id        String   @id @default(uuid())
+  title     String
+  deadline  DateTime
+  clientId  String
+  client    Clients  @relation(fields: [clientId], references: [id])
+}
