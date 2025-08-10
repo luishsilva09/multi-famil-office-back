@@ -4,6 +4,7 @@ import prismaPlugin from './plugins/prisma'
 import authPlugin from './plugins/auth'
 import swaggerPlugin from './plugins/swagger'
 import { clientRoutes } from './routes/clientRoutes'
+import { eventRoutes } from './routes/eventRoutes'
 
 dotenv.config()
 
@@ -13,6 +14,7 @@ app.register(prismaPlugin)
 app.register(authPlugin)
 app.register(swaggerPlugin)
 app.register(clientRoutes)
+app.register(eventRoutes)
 
 const start = async () => {
     try {
